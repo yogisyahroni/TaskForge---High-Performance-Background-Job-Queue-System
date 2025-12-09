@@ -1,0 +1,94 @@
+[package]
+name = "taskforge"
+version = "0.1.0"
+edition = "2021"
+authors = ["TaskForge Team"]
+description = "High-performance background job queue system"
+license = "MIT"
+repository = "https://github.com/taskforge/taskforge"
+
+[[bin]]
+name = "taskforge"
+path = "src/main.rs"
+
+[lib]
+name = "taskforge"
+path = "src/lib.rs"
+
+[dependencies]
+# Web framework
+axum = { version = "0.7", features = ["macros", "headers"] }
+tokio = { version = "1.0", features = ["full"] }
+tower = { version = "0.4", features = ["util", "timeout"] }
+tower-http = { version = "0.5", features = ["cors", "trace", "fs"] }
+
+# Database
+sqlx = { version = "0.7", features = ["runtime-tokio-rustls", "postgres", "uuid", "chrono", "json", "migrate"] }
+uuid = { version = "1.0", features = ["v4", "serde"] }
+
+# Serialization
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+
+# Cryptography and security
+jsonwebtoken = "9.0"
+bcrypt = "0.15"
+rand = "0.8"
+hex = "0.4"
+ring = "0.17"
+aes-gcm = "0.10"
+secrecy = { version = "0.8", features = ["serde"] }
+
+# Configuration
+config = "0.14"
+dotenv = "0.15"
+
+# Date/time
+chrono = { version = "0.4", features = ["serde"] }
+
+# HTTP client
+reqwest = { version = "0.11", features = ["json"] }
+
+# Tracing and monitoring
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+tokio-util = "0.7"
+
+# Metrics
+prometheus = "0.13"
+
+# Async utilities
+futures = "0.3"
+
+# Error handling
+thiserror = "1.0"
+anyhow = "1.0"
+
+# Environment variables
+env_logger = "0.10"
+
+# Validation
+validator = { version = "0.18", features = ["derive"] }
+
+# Async runtime utilities
+tokio-stream = "0.1"
+
+# Rate limiting
+axum-rate-limiter = "0.4"
+
+# Redis
+redis = { version = "0.24", features = ["tokio-comp", "json", "connection-manager"] }
+
+# Messaging
+tokio-util = { version = "0.7", features = ["codec"] }
+
+[dev-dependencies]
+tokio-test = "0.4"
+mockall = "0.11"
+serial_test = "3.0"
+proptest = "1.0"
+
+[profile.release]
+lto = true
+codegen-units = 1
+panic = "abort"
